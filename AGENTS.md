@@ -44,8 +44,8 @@ Output, `--json report.json`:
 ```json
 {
   "mode": "snapshot",
-  "clones": [{"index": 1, "hook_status": 404, "values": {"instance-id": "f74d..."}}],
-  "verdicts": [{"probe": "instance-id", "values": ["f74d...", "f74d..."], "unique": false}],
+  "clones": [{"index": 1, "hook_status": 404, "values": {"instance-id": "ab9c..."}}],
+  "verdicts": [{"probe": "instance-id", "values": ["ab9c...", "ab9c..."], "unique": false}],
   "pass": false
 }
 ```
@@ -98,7 +98,7 @@ The app must listen on TCP 8080 inside the guest (`--port` changes it). The defa
 ## Known limits
 
 - QEMU TCG, not Firecracker or KVM. Restore timing and devices differ from Lambda.
-- UNIQUE does not mean safe. In every run, Go's top-level `math/rand/v2` (`/global-rand`) came back unique, yet the Go runtime seeds that generator once per thread at process start (`runtime/rand.go`). Inferred cause: the clones consume a timing-dependent number of runtime random draws before the probe. A probe only catches values that stay equal.
+- UNIQUE does not mean safe. The demo app also serves `/global-rand`, which returns Go's top-level `math/rand/v2` value. The Go runtime seeds that generator once per thread at process start (`runtime/rand.go`), so a snapshot clones it. In 2-clone runs it came back unique every time. In one 3-clone run it came back SHARED in all three. Inferred cause: the clones consume a timing-dependent number of runtime random draws before the probe. That is why it is not in the demo spec, and why a single probe can miss a shared generator. Try it with `--clones 3` and a spec that includes `/global-rand`.
 - Kernel reseed depends on the VM. In one early run on QEMU's `microvm` machine (no vmgenid device) `/fresh-random`, which reads `crypto/rand` per request, came back SHARED. On `q35` without vmgenid it came back unique. That was not deterministic, so the demo does not check it.
 - Only GET probes with exact body comparison. No headers, no JSON field selection, no POST probes.
 - Linux x86_64 only. Needs `qemu-system-x86_64` on PATH.

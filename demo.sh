@@ -62,7 +62,7 @@ check 2 "instance-id, session-token and request-id are SHARED across clones" sha
 check 3 "buggy app has no /run hook (POST /run -> 404 on every clone)" bash -c "[ \$(grep -c 'POST /run -> 404' $OUT/buggy.txt) -eq 2 ]"
 check 4 "crypto/rand read after restore is UNIQUE when the platform reseeds the kernel (vmgenid)" has buggy "^UNIQUE +fresh-random "
 check 5 "same buggy app booted fresh twice passes: ordinary tests miss the bug" exit_is buggy-coldboot 0
-check 6 "fixed app regenerates state in POST /run: 5/5 probes UNIQUE, exit 0" bash -c "grep -q '^PASS  5/5' $OUT/fixed.txt && [ \$(grep -c 'POST /run -> 200' $OUT/fixed.txt) -eq 2 ] && [ \$(cat $OUT/fixed.exit) = 0 ]"
+check 6 "fixed app regenerates state in POST /run: 4/4 probes UNIQUE, exit 0" bash -c "grep -q '^PASS  4/4' $OUT/fixed.txt && [ \$(grep -c 'POST /run -> 200' $OUT/fixed.txt) -eq 2 ] && [ \$(cat $OUT/fixed.exit) = 0 ]"
 
 echo
 echo "$pass passed, $failn failed${failed:+ (checks ${failed[*]})}"

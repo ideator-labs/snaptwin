@@ -6,12 +6,11 @@ Lambda MicroVMs, Lambda SnapStart and Firecracker all start new instances from o
 
 ```
 $ bash demo.sh
-SHARED  instance-id      f74d8f0ec75e65d4 | f74d8f0ec75e65d4
-SHARED  session-token    d79aa45483b0fdad807448a82bd823ff | d79aa45483b0fdad807448a82bd823ff
-SHARED  request-id       788f2393790a6703 | 788f2393790a6703
-UNIQUE  global-rand      5b17e0d0318bb5ea | 676364cf22b4562b
-UNIQUE  fresh-random     25a5f8de1e355081fb4ec3a462cf11c6 | 262d2729dc290fee352fa9efa954fb84
-FAIL  3/5 probes returned the same value in more than one snapshot clone
+SHARED  instance-id      ab9c86e5fc96011a | ab9c86e5fc96011a
+SHARED  session-token    b18e1fc2abed80bd511af95c79da6a7c | b18e1fc2abed80bd511af95c79da6a7c
+SHARED  request-id       80fe68a9c6bf397b | 80fe68a9c6bf397b
+UNIQUE  fresh-random     fd95de4f9c4defe3e657f313c019be04 | ef6b200391209a504ecf91e03c719b8b
+FAIL  3/4 probes returned the same value in more than one snapshot clone
 ...
 6 passed, 0 failed
 ```
