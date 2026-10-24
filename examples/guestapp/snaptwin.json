@@ -1,0 +1,11 @@
+{
+  "health": "/health",
+  "hook": {"method": "POST", "path": "/run"},
+  "probes": [
+    {"name": "instance-id", "path": "/instance-id"},
+    {"name": "session-token", "path": "/session-token"},
+    {"name": "request-id", "path": "/request-id"},
+    {"name": "global-rand", "path": "/global-rand"},
+    {"name": "fresh-random", "path": "/fresh-random"}
+  ]
+}
